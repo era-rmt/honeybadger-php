@@ -32,10 +32,11 @@ class Error
      * @param      $error
      * @param null $file
      * @param null $line
+     * @param null $context
      *
      * @return bool|mixed
      */
-    public static function handle($code, $error, $file = null, $line = null)
+    public static function handle($code, $error, $file = null, $line = null, array $context = null)
     {
         if (error_reporting() & $code) {
             // This error is not suppressed by current error reporting settings.
@@ -53,7 +54,8 @@ class Error
                 $code,
                 $error,
                 $file,
-                $line
+                $line,
+                $context
             );
         }
 

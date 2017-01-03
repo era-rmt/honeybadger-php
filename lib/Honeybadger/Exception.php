@@ -33,10 +33,24 @@ class Exception
     /**
      * @param \Exception $e
      *
+     * @return null
+     */
+    public static function handleNonError(Exception$e)
+    {
+        return null;
+    }
+
+    /**
+     * @param $e
+     *
      * @return mixed
      */
-    public static function handle(\Exception $e)
+    public static function handle($e)
     {
+        if (!($e instanceof \Exception || $e instanceof \Throwable)) {
+            self::handleNonError($e);
+        }
+
         try {
             // Attempt to send this exception to Honeybadger.
             Honeybadger::notifyOrIgnore($e);
